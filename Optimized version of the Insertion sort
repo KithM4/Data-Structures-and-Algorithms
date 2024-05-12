@@ -1,0 +1,38 @@
+import java.util.Arrays;
+
+public class OptimizedInsertionSort {
+
+    public static void main(String[] args) {
+        // Input array
+        int[] array = {75, 38, 25, 13, 33, 19, 91};
+        
+        // Display original array
+        System.out.println("Original array: " + Arrays.toString(array));
+        
+        // Sort the array
+        insertionSort(array);
+        
+        // Display sorted array
+        System.out.println("Sorted array: " + Arrays.toString(array));
+    }
+
+    static void insertionSort(int[] array) {
+        int n = array.length;
+        
+        // Iterate over the array
+        for (int i = 1; i < n; ++i) {
+            // Store the current element to be inserted
+            int key = array[i];
+            int j = i - 1;
+
+            // Move elements greater than key to one position ahead of their current position
+            while (j >= 0 && array[j] > key) {
+                array[j + 1] = array[j];
+                j = j - 1;
+            }
+            
+            // Place the key in its correct position
+            array[j + 1] = key;
+        }
+    }
+}
