@@ -1,0 +1,52 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class StackUsingDeque {
+    Deque<Integer> deque;
+
+    public StackUsingDeque() {
+        deque = new ArrayDeque<>();
+    }
+
+    public void push(int data) {
+        deque.addLast(data);
+    }
+
+    public int pop() {
+        if (deque.isEmpty()) {
+            System.out.println("Stack is empty");
+            return -1;
+        }
+        return deque.removeLast();
+    }
+
+    public int peek() {
+        if (deque.isEmpty()) {
+            System.out.println("Stack is empty");
+            return -1;
+        }
+        return deque.getLast();
+    }
+
+    public boolean isEmpty() {
+        return deque.isEmpty();
+    }
+
+    public void display() {
+        System.out.println("Stack Content: " + deque);
+    }
+
+    public static void main(String[] args) {
+        StackUsingDeque stack = new StackUsingDeque();
+        stack.push(3);
+        stack.push(4);
+        stack.push(2);
+        stack.push(1);
+        stack.push(10);
+
+        stack.display(); // Output: Stack Content: [3, 4, 2, 1, 10]
+        System.out.println("Pop: " + stack.pop()); // Output: Pop: 10
+        stack.display(); // Output: Stack Content: [3, 4, 2, 1]
+        System.out.println("Peek: " + stack.peek()); // Output: Peek: 1
+    }
+}
