@@ -14,6 +14,10 @@ public class StackExample {
         // Displaying the stack
         System.out.println("Stack: " + stack);
 
+        // Peeking at the top element of the stack
+        int topElement = stack.peek();
+        System.out.println("Top element: " + topElement);
+
         // Popping elements from the stack
         int poppedElement = stack.pop();
         System.out.println("Popped element: " + poppedElement);
