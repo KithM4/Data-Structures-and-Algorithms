@@ -1,0 +1,112 @@
+import java.util.Stack;
+
+public class LinkedListWithStack {
+    private static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node head;
+    private Stack<Node> stack;
+
+    public LinkedListWithStack() {
+        head = null;
+        stack = new Stack<>();
+    }
+
+    // Insertion at the beginning using stack
+    public void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
+        stack.push(newNode); // Push the new node onto the stack
+    }
+
+    // Insertion at the end using stack
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        stack.push(newNode); // Push the new node onto the stack
+    }
+
+    // Deletion from the beginning using stack
+    public void deleteFromBeginning() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        Node nodeToDelete = head;
+        head = head.next;
+        nodeToDelete.next = null;
+        stack.pop(); // Pop the top node from the stack
+    }
+
+    // Deletion from the end using stack
+    public void deleteFromEnd() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        if (head.next == null) {
+            head = null;
+            stack.pop();
+            return;
+        }
+        Node current = head;
+        Node prev = null;
+        while (current.next != null) {
+            prev = current;
+            current = current.next;
+        }
+        prev.next = null;
+        stack.pop(); // Pop the top node from the stack
+    }
+
+    // Utility function to print the list
+    public void printList() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        LinkedListWithStack ll = new LinkedListWithStack();
+
+        // Insertions
+        ll.insertAtBeginning(3);
+        ll.insertAtEnd(5);
+        ll.insertAtBeginning(7);
+        ll.printList();  // Output: 7 -> 3 -> 5 -> null
+
+        // Deletions
+        ll.deleteFromBeginning();
+        ll.printList();  // Output: 3 -> 5 -> null
+
+        ll.deleteFromEnd();
+        ll.printList();  // Output: 3 -> null
+    }
+}
