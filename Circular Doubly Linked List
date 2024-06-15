@@ -1,0 +1,83 @@
+package dsaCodes;
+
+public class CircularDoublyLinkedList {
+    private Node head;
+    private Node tail;
+    private int size;
+
+    private static class Node {
+        int data;
+        Node prev;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.prev = null;
+            this.next = null;
+        }
+    }
+
+    public CircularDoublyLinkedList() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    // Insertion at the beginning
+    public void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+            head.prev = tail;
+            head.next = tail;
+            tail.prev = head;
+            tail.next = head;
+        } else {
+            newNode.next = head;
+            newNode.prev = tail;
+            head.prev = newNode;
+            tail.next = newNode;
+            head = newNode;
+        }
+        size++;
+    }
+
+    // Insertion at the end
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (tail == null) {
+            head = newNode;
+            tail = newNode;
+            head.prev = tail;
+            head.next = tail;
+            tail.prev = head;
+            tail.next = head;
+        } else {
+            newNode.prev = tail;
+            newNode.next = head;
+            tail.next = newNode;
+            head.prev = newNode;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    // Insertion at a specific position
+    public void insertAtPosition(int position, int data) {
+        if (position < 0 || position > size) {
+            throw new IndexOutOfBoundsException("Invalid position: " + position);
+        }
+        if (position == 0) {
+            insertAtBeginning(data);
+        } else if (position == size) {
+            insertAtEnd(data);
+        } else {
+            Node newNode = new Node(data);
+            Node current = head;
+            for (int i = 0; i < position - 1; i++) {
+                current = current.next;
+            }
+            newNode.prev = current;
+            newNode.next = current.next;
+            current.next.
