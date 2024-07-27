@@ -1,0 +1,105 @@
+// Node class representing each element in the circular linked list
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+// CircularLinkedList class containing the methods to manipulate the list
+class CircularLinkedList {
+    Node head;
+
+    // Method to insert a new node at the end of the list
+    public void insert(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            newNode.next = head;
+        } else {
+            Node current = head;
+            while (current.next != head) {
+                current = current.next;
+            }
+            current.next = newNode;
+            newNode.next = head;
+        }
+    }
+
+    // Method to delete a node with a given value
+    public void delete(int data) {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        Node current = head;
+        Node previous = null;
+
+        // If head needs to be removed
+        if (head.data == data) {
+            if (head.next == head) {
+                head = null;
+                return;
+            }
+
+            while (current.next != head) {
+                current = current.next;
+            }
+
+            current.next = head.next;
+            head = head.next;
+            return;
+        }
+
+        // Search for the node to be deleted
+        do {
+            previous = current;
+            current = current.next;
+        } while (current != head && current.data != data);
+
+        // If the node was not found
+        if (current == head) {
+            System.out.println("Node with value " + data + " not found");
+            return;
+        }
+
+        previous.next = current.next;
+    }
+
+    // Method to print the circular linked list
+    public void printList() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        Node current = head;
+        do {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        } while (current != head);
+        System.out.println("(head)");
+    }
+
+    public static void main(String[] args) {
+        CircularLinkedList list = new CircularLinkedList();
+        list.insert(10);
+        list.insert(20);
+        list.insert(30);
+        System.out.println("List after insertion:");
+        list.printList();  // Output: 10 -> 20 -> 30 -> (head)
+
+        list.delete(20);
+        System.out.println("List after deletion of 20:");
+        list.printList();  // Output: 10 -> 30 -> (head)
+
+        list.delete(40);
+        System.out.println("Attempt to delete a non-existent element 40:");
+        list.printList();  // Output: Node with value 40 not found
+    }
+}
