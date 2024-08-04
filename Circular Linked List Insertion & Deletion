@@ -1,0 +1,132 @@
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class CircularLinkedList {
+    private Node head = null;
+    private Node tail = null;
+
+    // Insert at the beginning
+    public void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+            newNode.next = head;
+        } else {
+            newNode.next = head;
+            head = newNode;
+            tail.next = head;
+        }
+    }
+
+    // Insert at the end
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+            newNode.next = head;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+            tail.next = head;
+        }
+    }
+
+    // Insert after a given node
+    public void insertAfter(Node prevNode, int data) {
+        if (prevNode == null) {
+            System.out.println("The given previous node cannot be null");
+            return;
+        }
+
+        Node newNode = new Node(data);
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
+
+        if (prevNode == tail) {
+            tail = newNode;
+        }
+    }
+
+    // Delete a node
+    public void deleteNode(int key) {
+        if (head == null) {
+            return;
+        }
+
+        Node current = head;
+        Node prev = null;
+
+        // If the head node itself holds the key
+        if (current.data == key) {
+            if (head == tail) {
+                head = null;
+                tail = null;
+            } else {
+                head = head.next;
+                tail.next = head;
+            }
+            return;
+        }
+
+        // Search for the key
+        do {
+            prev = current;
+            current = current.next;
+        } while (current != head && current.data != key);
+
+        // If the key was found
+        if (current.data == key) {
+            prev.next = current.next;
+
+            if (current == tail) {
+                tail = prev;
+            }
+        }
+    }
+
+    // Display the list
+    public void display() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        Node current = head;
+        do {
+            System.out.print(current.data + " ");
+            current = current.next;
+        } while (current != head);
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        CircularLinkedList list = new CircularLinkedList();
+
+        list.insertAtEnd(1);
+        list.insertAtEnd(2);
+        list.insertAtEnd(3);
+        list.insertAtBeginning(0);
+
+        System.out.print("Circular Linked List: ");
+        list.display();
+
+        list.insertAfter(list.head.next, 1);
+
+        System.out.print("After inserting 1 after the second node: ");
+        list.display();
+
+        list.deleteNode(2);
+
+        System.out.print("After deleting node with data 2: ");
+        list.display();
+    }
+}
