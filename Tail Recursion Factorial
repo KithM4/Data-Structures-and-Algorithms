@@ -1,0 +1,21 @@
+public class TailRecFactorial {
+
+    // Public method to calculate factorial
+    public static long factorial(int n) {
+        return factorialHelper(n, 1);
+    }
+
+    // Tail-recursive helper method
+    private static long factorialHelper(int n, long accumulator) {
+        if (n == 0 || n == 1) {
+            return accumulator;
+        } else {
+            return factorialHelper(n - 1, n * accumulator);
+        }
+    }
+
+    public static void main(String[] args) {
+        int number = 5;
+        System.out.println("Factorial of " + number + " is: " + factorial(number));
+    }
+}
