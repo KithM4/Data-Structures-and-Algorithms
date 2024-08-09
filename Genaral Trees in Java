@@ -1,0 +1,68 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Node class
+class TreeNode {
+    String data;
+    List<TreeNode> children;
+
+    // Constructor
+    public TreeNode(String data) {
+        this.data = data;
+        this.children = new ArrayList<>();
+    }
+
+    // Add a child to this node
+    public void addChild(TreeNode child) {
+        children.add(child);
+    }
+}
+
+// GeneralTree class
+public class GeneralTree {
+    TreeNode root;
+
+    // Constructor
+    public GeneralTree(String rootData) {
+        this.root = new TreeNode(rootData);
+    }
+
+    // Print the tree
+    public void printTree() {
+        printTree(root, "");
+    }
+
+    // Recursive method to print the tree
+    private void printTree(TreeNode node, String indent) {
+        if (node != null) {
+            System.out.println(indent + node.data);
+            for (TreeNode child : node.children) {
+                printTree(child, indent + "  ");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        GeneralTree tree = new GeneralTree("CEO");
+
+        TreeNode cto = new TreeNode("CTO");
+        TreeNode coo = new TreeNode("COO");
+        TreeNode cfo = new TreeNode("CFO");
+
+        TreeNode dev1 = new TreeNode("Dev1");
+        TreeNode dev2 = new TreeNode("Dev2");
+        TreeNode acc1 = new TreeNode("Acc1");
+
+        tree.root.addChild(cto);
+        tree.root.addChild(coo);
+        tree.root.addChild(cfo);
+
+        cto.addChild(dev1);
+        cto.addChild(dev2);
+
+        cfo.addChild(acc1);
+
+        System.out.println("Tree Structure:");
+        tree.printTree();
+    }
+}
